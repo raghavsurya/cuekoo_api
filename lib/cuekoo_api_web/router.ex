@@ -19,6 +19,7 @@ defmodule CuekooApiWeb.Router do
     scope "/reminders" do
       get "/", RemindersController, :index
       post "/new", RemindersController, :new
+      put "/update", RemindersController, :update
     end
 
   end

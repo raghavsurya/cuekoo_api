@@ -17,7 +17,7 @@ defmodule CuekooApi.Reminders do
       [%Reminder{}, ...]
 
   """
-  def list_reminder do
+  def list_reminders do
     Repo.all(Reminder)
   end
 

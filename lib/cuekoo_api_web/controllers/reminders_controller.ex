@@ -3,7 +3,10 @@ defmodule CuekooApiWeb.RemindersController do
 
 
   def index(conn, _params) do
-    conn |> put_resp_content_type("application/json") |> send_resp(200, ~s({"message": "Create a reminder!"}))
+    reminders = CuekooApi.Reminders.list_reminders()
+    conn
+    |> put_status(:ok)
+    |> json(%{reminders: reminders})
   end
 
   def new(conn, params) do
@@ -19,4 +22,25 @@ defmodule CuekooApiWeb.RemindersController do
         |> json(%{errors: changeset})
     end
   end
+
+  def update(conn, %{"id" => id} = params) do
+    with {:ok, reminder} <- CuekooApi.Reminders.get_reminder!(id),
+         {:ok, %CuekooApi.Reminders.Reminder{} = reminder} <- CuekooApi.Reminders.update_reminder(reminder, params) do
+      conn
+      |> put_status(:ok)
+      |> json(%{message: "Reminder updated successfully", reminder: reminder})
+    else
+      {:error, :not_found} ->
+        conn
+        |> put_status(:not_found)
+        |> json(%{error: "Reminder not found"})
+
+      {:error, changeset} ->
+        conn
+        |> put_status(:bad_request)
+        |> json(%{errors: changeset})
+    end
+  end
+
+
 end

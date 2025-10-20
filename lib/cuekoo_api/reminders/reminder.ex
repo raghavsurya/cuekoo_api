@@ -17,7 +17,7 @@ defmodule CuekooApi.Reminders.Reminder do
   @doc false
   def changeset(reminder, attrs) do
     reminder
-    |> cast(attrs, [:name, :event_scheduled_at, :remind_frequency, :location, :is_active])
+    |> cast(attrs, [:name, :event_scheduled_at, :remind_frequency, :location, :notes, :is_active])
     |> validate_required([:name, :event_scheduled_at, :remind_frequency, :is_active])
   end
 end
