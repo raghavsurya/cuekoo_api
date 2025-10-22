@@ -11,6 +11,10 @@ config :cuekoo_api,
   ecto_repos: [CuekooApi.Repo],
   generators: [timestamp_type: :utc_datetime]
 
+config :cuekoo_api, CuekooApi.Guardian,
+  issuer: "cuekoo_api",
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY")
+
 # Configures the endpoint
 config :cuekoo_api, CuekooApiWeb.Endpoint,
   url: [host: "localhost"],

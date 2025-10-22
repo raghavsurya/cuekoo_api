@@ -7,7 +7,7 @@ defmodule CuekooApi.UsersFixtures do
   @doc """
   Generate a unique user email.
   """
-  def unique_user_email, do: "some email#{System.unique_integer([:positive])}"
+  def unique_user_email, do: "someemail#{System.unique_integer([:positive])}@test.com"
 
   @doc """
   Generate a user.
@@ -21,7 +21,7 @@ defmodule CuekooApi.UsersFixtures do
         email: unique_user_email(),
         hashed_password: "some hashed_password",
         name: "some name",
-        password: "some password"
+        password: "SomePass@2021"
       })
       |> CuekooApi.Users.create_user()
 

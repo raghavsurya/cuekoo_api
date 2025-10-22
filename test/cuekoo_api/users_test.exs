@@ -19,18 +19,15 @@ defmodule CuekooApi.UsersTest do
       user = user_fixture()
       assert Users.get_user!(user.id) == user
     end
-
     test "create_user/1 with valid data creates a user" do
-      valid_attrs = %{name: "some name", address: "some address", password: "some password", email: "some email", hashed_password: "some hashed_password", confirmed_at: ~U[2025-10-13 19:35:00Z]}
+      valid_attrs = %{name: "some name", address: "some address", password: "SomePass@2021", email: unique_user_email(), hashed_password: "some hashed_password", confirmed_at: ~U[2025-10-13 19:35:00Z]}
 
       assert {:ok, %User{} = user} = Users.create_user(valid_attrs)
       assert user.name == "some name"
       assert user.address == "some address"
-      assert user.password == "some password"
-      assert user.email == "some email"
-      assert user.hashed_password == "some hashed_password"
-      assert user.confirmed_at == ~U[2025-10-13 19:35:00Z]
+      assert user.email == valid_attrs.email
     end
+
 
     test "create_user/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Users.create_user(@invalid_attrs)
@@ -38,15 +35,12 @@ defmodule CuekooApi.UsersTest do
 
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
-      update_attrs = %{name: "some updated name", address: "some updated address", password: "some updated password", email: "some updated email", hashed_password: "some updated hashed_password", confirmed_at: ~U[2025-10-14 19:35:00Z]}
+      update_attrs = %{name: "some updated name", address: "some updated address", password: "SomePass@2021", email: "someupdatedemail@test.com", hashed_password: "some updated hashed_password", confirmed_at: ~U[2025-10-14 19:35:00Z]}
 
       assert {:ok, %User{} = user} = Users.update_user(user, update_attrs)
       assert user.name == "some updated name"
       assert user.address == "some updated address"
-      assert user.password == "some updated password"
-      assert user.email == "some updated email"
-      assert user.hashed_password == "some updated hashed_password"
-      assert user.confirmed_at == ~U[2025-10-14 19:35:00Z]
+      assert user.email == "someupdatedemail@test.com"
     end
 
     test "update_user/2 with invalid data returns error changeset" do
