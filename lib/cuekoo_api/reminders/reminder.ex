@@ -2,6 +2,8 @@ defmodule CuekooApi.Reminders.Reminder do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:name, :id, :location, :notes, :event_scheduled_at, :remind_frequency, :is_active, :user_id]}
+
   schema "reminders" do
     field :name, :string
     field :location, :map

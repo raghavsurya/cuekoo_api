@@ -1,7 +1,7 @@
 defmodule CuekooApi.Auth.Pipleine do
   use Guardian.Plug.Pipeline,
     otp_app: :cuekoo_api,
-    module: CuekooApi.Guardian,
+    module: CuekooApi.Auth.Guardian,
     error_handler: CuekooApi.Auth.ErrorHandler
 
     # this validates a token found in the session
