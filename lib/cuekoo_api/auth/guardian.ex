@@ -1,4 +1,4 @@
-defmodule CuekooApi.Guardian do
+defmodule CuekooApi.Auth.Guardian do
   use Guardian, otp_app: :cuekoo_api
   alias CuekooApi.Users.User
 

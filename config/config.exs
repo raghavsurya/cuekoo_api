@@ -11,7 +11,7 @@ config :cuekoo_api,
   ecto_repos: [CuekooApi.Repo],
   generators: [timestamp_type: :utc_datetime]
 
-config :cuekoo_api, CuekooApi.Guardian,
+config :cuekoo_api, CuekooApi.Auth.Guardian,
   issuer: "cuekoo_api",
   secret_key: System.get_env("GUARDIAN_SECRET_KEY")
 

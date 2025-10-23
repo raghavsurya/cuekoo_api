@@ -1,4 +1,4 @@
-defmodule CuekooApi.AuthManager do
+defmodule CuekooApi.Auth.AuthManager do
   alias Argon2
   alias CuekooApi.Users.User
   alias CuekooApi.Repo

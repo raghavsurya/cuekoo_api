@@ -1,6 +1,6 @@
 defmodule CuekooApi.AuthManagerTest do
   use CuekooApi.DataCase, async: true
-  alias CuekooApi.AuthManager
+  alias CuekooApi.Auth.AuthManager
   alias CuekooApi.Users
 
   describe "authenticate_user/2" do
