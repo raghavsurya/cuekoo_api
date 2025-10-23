@@ -1,11 +1,18 @@
 defmodule CuekooApiWeb.Router do
   use CuekooApiWeb, :router
 
+  pipeline :auth do
+    plug Guardian.Plug.Pipeline,
+      module: CuekooApi.Guardian,
+      error_handler: CuekooApiWeb.AuthErrorHandler
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/api", CuekooApiWeb do
+
     pipe_through :api
 
     get "/", HomeController, :index
