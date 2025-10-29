@@ -35,7 +35,7 @@ defmodule CuekooApi.Users.User do
 
   def validate_password(changeset) do
     changeset
-    |> validate_length(:password, min: 8, max: 12)
+    |> validate_length(:password, min: 8, max: 16)
     |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
     |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
     |> validate_format(:password, ~r/[0-9]/, message: "at least one digit")

@@ -12,7 +12,7 @@ defmodule CuekooApi.RemindersTest do
 
     test "list_reminder/0 returns all reminder" do
       reminder = reminder_fixture()
-      assert Reminders.list_reminder() == [reminder]
+      assert Reminders.list_reminders() == [reminder]
     end
 
     test "get_reminder!/1 returns the reminder with given id" do
