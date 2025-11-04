@@ -15,6 +15,14 @@ config :cuekoo_api, CuekooApi.Auth.Guardian,
   issuer: "cuekoo_api",
   secret_key: System.get_env("GUARDIAN_SECRET_KEY")
 
+# Default auth cookie settings. Can be overridden per environment.
+config :cuekoo_api, :auth_cookie,
+  name: "auth_token",
+  http_only: true,
+  secure: true,
+  max_age: 7 * 24 * 60 * 60,
+  same_site: "Strict"
+
 # Configures the endpoint
 config :cuekoo_api, CuekooApiWeb.Endpoint,
   url: [host: "localhost"],

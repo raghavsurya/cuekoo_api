@@ -2,6 +2,7 @@ defmodule CuekooApiWeb.Router do
   use CuekooApiWeb, :router
 
   pipeline :auth do
+    plug CuekooApiWeb.Plugs.AuthCookie
     plug CuekooApi.Auth.Pipleine
   end
 

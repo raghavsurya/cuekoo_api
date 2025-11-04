@@ -2,6 +2,7 @@ defmodule CuekooApi.Auth.Guardian do
   use Guardian, otp_app: :cuekoo_api
   alias CuekooApi.Users.User
 
+  @spec subject_for_token(any(), any()) :: {:error, :reason_for_error} | {:ok, binary()}
   def subject_for_token(%User{} = user, _claims) do
 
     sub = to_string(user.id)
