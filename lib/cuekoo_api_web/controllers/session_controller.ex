@@ -24,9 +24,28 @@ defmodule CuekooApiWeb.SessionController do
       {:ok, user} ->
         {:ok, token, _claims} = Guardian.encode_and_sign(user)
 
+        # Read cookie options from config so dev vs prod behavior is centralized.
+        cfg = Application.get_env(:cuekoo_api, :auth_cookie, [])
+        cookie_name = Keyword.get(cfg, :name, "auth_token")
+        http_only = Keyword.get(cfg, :http_only, true)
+        secure = Keyword.get(cfg, :secure, true)
+        max_age = Keyword.get(cfg, :max_age, 7 * 24 * 60 * 60)
+
+        same_site =
+          case Keyword.get(cfg, :same_site, "Strict") do
+            s when is_atom(s) -> s |> Atom.to_string() |> String.capitalize()
+            s when is_binary(s) -> s |> String.downcase() |> String.capitalize()
+          end
+
         conn
+        |> put_resp_cookie(cookie_name, token,
+          http_only: http_only,
+          secure: secure,
+          max_age: max_age,
+          same_site: same_site
+        )
         |> put_status(:ok)
-        |> json(%{message: "Login successful", token: token, user: user})
+        |> json(%{message: "Login successful", user: user})
 
       {:error, :invalid_password} ->
         conn
@@ -41,8 +60,12 @@ defmodule CuekooApiWeb.SessionController do
   end
 
   def logout(conn, _params) do
+    cfg = Application.get_env(:cuekoo_api, :auth_cookie, [])
+    cookie_name = Keyword.get(cfg, :name, "auth_token")
+
     conn
     |> Guardian.Plug.sign_out()
+    |> delete_resp_cookie(cookie_name)
     |> put_status(:ok)
     |> json(%{message: "Logged out successfully"})
   end

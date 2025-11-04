@@ -52,6 +52,10 @@ config :cuekoo_api, CuekooApiWeb.Endpoint,
 # Enable dev routes for dashboard and mailbox
 config :cuekoo_api, dev_routes: true
 
+# In dev we typically don't use HTTPS; set secure to false so cookies are sent over HTTP
+config :cuekoo_api, :auth_cookie,
+  secure: false
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
