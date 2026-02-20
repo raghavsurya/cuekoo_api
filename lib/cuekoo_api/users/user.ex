@@ -4,7 +4,7 @@ defmodule CuekooApi.Users.User do
   #@primary_key {:id, :integer, autogenerate: true}
   @foreign_key_type :binary_id
 
-  @derive {Jason.Encoder, only: [:name, :address, :email, :id, :inserted_at, :updated_at]}
+  @derive {Jason.Encoder, only: [:name, :address, :password, :email, :id, :inserted_at, :updated_at]}
 
   schema "users" do
     field :name, :string
@@ -20,8 +20,8 @@ defmodule CuekooApi.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :address, :password, :hashed_password, :confirmed_at])
-    |> validate_required([:name, :email, :address, :password, :hashed_password])
+    |> cast(attrs, [:name, :email, :address, :password, :confirmed_at])
+    |> validate_required([:name, :email, :address, :password])
     |> validate_email_format()
     |> validate_password()
     |> unique_constraint(:email)

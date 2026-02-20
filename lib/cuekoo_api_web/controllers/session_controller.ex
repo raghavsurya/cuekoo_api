@@ -69,4 +69,18 @@ defmodule CuekooApiWeb.SessionController do
     |> put_status(:ok)
     |> json(%{message: "Logged out successfully"})
   end
+
+  def me(conn, _params) do
+    case Guardian.Plug.find_token_from_cookies(conn) do
+      :no_token_found ->
+        conn
+        |> put_status(:unauthorized)
+        |> json(%{error: "No active session"})
+
+      {:ok, token} ->
+        conn
+        |> put_status(:ok)
+        |> json(%{user: "logged in with token #{token}"})
+    end
+  end
 end

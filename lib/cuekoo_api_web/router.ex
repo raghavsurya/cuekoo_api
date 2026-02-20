@@ -38,6 +38,7 @@ defmodule CuekooApiWeb.Router do
       get "/login", SessionController, :new
       post "/login", SessionController, :login
       post "/logout", SessionController, :logout
+      get "/me", SessionController, :me
     end
   end
 
