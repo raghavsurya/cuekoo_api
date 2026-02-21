@@ -7,7 +7,7 @@ defmodule CuekooApiWeb.UserController do
   """
   @spec create(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def create(conn, params) do
-    %{"name" => _, "address" => _, "password" => _} = params
+    %{"name" => _, "email" => _, "password" => _} = params
 
     case CuekooApi.Users.create_user(params) do
       {:ok, user} ->
@@ -18,7 +18,7 @@ defmodule CuekooApiWeb.UserController do
       {:error, changeset} ->
         conn
         |> put_status(:bad_request)
-        |> json(%{errors: changeset})
+        |> send_resp(401, "Error creating user: #{inspect(changeset.errors)}")
     end
   end
 
