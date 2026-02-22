@@ -38,7 +38,7 @@ defmodule CuekooApi.Users.User do
     |> validate_length(:password, min: 8, max: 16)
     |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
     |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
-    |> validate_format(:password, ~r/[0-9]/, message: "at least one digit")
+    |> validate_format(:password, ~r/[0-9]/, message: "at least one number")
     |> validate_format(:password, ~r/[^A-Za-z0-9]/, message: "at least one special character")
     |> maybe_hash_password()
   end
